@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HMA Admin | The Majestic Era</title><link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{background:#f3f5f8;min-height:100vh}.admin-top{background:var(--navy);color:white;padding:22px 5%;display:flex;justify-content:space-between;align-items:center}.admin-top h1{font:600 22px var(--serif);margin:0}.admin-top p{font-size:10px;color:#c3ccda;letter-spacing:1px;margin:6px 0 0}.admin-wrap{max-width:1200px;margin:38px auto;padding:0 22px}.login-card{max-width:420px;margin:70px auto;background:#fff;padding:32px;box-shadow:0 10px 35px #071b4310}.login-card h2{font:600 28px var(--serif);color:var(--navy);margin:0 0 8px}.login-card p{font-size:12px;color:#6b7484;line-height:1.6}.login-card label{display:block;font-size:11px;font-weight:700;margin:18px 0}.login-card input,.toolbar input{display:block;width:100%;height:43px;border:1px solid #dce1e9;padding:0 12px;margin-top:7px;font:12px var(--sans)}.admin-btn{background:var(--navy);color:white;border:0;padding:13px 18px;font-weight:700;cursor:pointer}.login-card .admin-btn{width:100%;margin-top:8px}.admin-msg{font-size:11px;color:#a33;margin-top:12px;min-height:16px}.dashboard{display:none}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:24px}.stat{background:#fff;padding:22px;border:1px solid #e6eaf0}.stat small{font-size:9px;letter-spacing:1.5px;color:#7b8493}.stat strong{display:block;font:600 32px var(--serif);color:var(--navy);margin-top:9px}.toolbar{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:14px}.toolbar input{max-width:360px;margin:0;background:#fff}.table-wrap{overflow:auto;background:#fff;border:1px solid #e6eaf0}table{border-collapse:collapse;width:100%;min-width:760px}th,td{text-align:left;padding:14px 13px;border-bottom:1px solid #edf0f4;font-size:11px}th{font-size:9px;letter-spacing:1px;color:#697487;background:#fafbfc}td{color:#344056}.status{padding:5px 8px;background:#e8f5ed;color:#247047;font-size:9px}.status.out{background:#f8ece9;color:#a34b3e}.action-btn{border:1px solid #c9d2df;background:white;padding:7px 9px;font-size:10px;cursor:pointer}.action-btn:disabled{opacity:.5;cursor:not-allowed}.empty{text-align:center;padding:35px;color:#788395}.admin-actions{display:flex;gap:8px}.top-actions{display:flex;gap:8px}.top-actions button{background:transparent;color:white;border:1px solid #ffffff55;padding:9px 12px;font-size:10px;cursor:pointer}@media(max-width:650px){.stats{grid-template-columns:1fr}.toolbar{align-items:stretch;flex-direction:column}.toolbar input{max-width:none}.admin-top{align-items:flex-start;gap:12px}.admin-top h1{font-size:18px}}
+    @media print{.admin-top,.toolbar,.admin-actions{display:none!important}.admin-wrap{margin:0}.table-wrap{border:0}}
+  </style>
+</head>
+<body>
+  <header class="admin-top"><div><h1>HMA · Admin portal</h1><p>THE MAJESTIC ERA — ATTENDEE MANAGEMENT</p></div><div class="top-actions"><button id="refreshBtn" hidden>Refresh</button><button id="logoutBtn" hidden>Sign out</button></div></header>
+  <main class="admin-wrap">
+    <section class="login-card" id="loginCard">
+      <p class="eyebrow dark-eyebrow">AUTHORISED PERSONNEL ONLY</p><h2>Administrator sign in</h2><p>Sign in with the administrator account created for the HMA Supabase project.</p>
+      <form id="loginForm"><label>Email address<input id="adminEmail" type="email" required autocomplete="username"></label><label>Password<input id="adminPassword" type="password" required autocomplete="current-password"></label><button class="admin-btn" type="submit">Sign in</button></form><div class="admin-msg" id="loginMessage"></div>
+    </section>
+    <section class="dashboard" id="dashboard">
+      <div class="stats"><div class="stat"><small>TOTAL REGISTRATIONS</small><strong id="totalCount">—</strong></div><div class="stat"><small>SPACES REMAINING</small><strong id="remainingCount">—</strong></div><div class="stat"><small>CHECKED IN</small><strong id="checkedCount">—</strong></div></div>
+      <section style="background:#fff;padding:18px;margin-bottom:18px;border:1px solid #e6eaf0"><b style="font:600 20px Georgia;color:#071b43">QR check-in</b><p style="font-size:11px;color:#6b7484">Use a camera-enabled device to scan an attendee ticket QR code.</p><button class="admin-btn" id="startScannerBtn">Start camera scanner</button> <button class="action-btn" id="stopScannerBtn" disabled>Stop scanner</button><div id="qrReader" style="max-width:360px;margin-top:14px"></div><p id="scanMessage" class="admin-msg"></p></section><div class="toolbar"><input id="searchInput" type="search" placeholder="Search name, phone or registration code…"><div class="admin-actions"><button class="admin-btn" id="exportBtn">Export CSV</button><button class="action-btn" id="refreshListBtn">Refresh list</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th>REGISTRATION ID</th><th>NAME</th><th>PHONE</th><th>DEPARTMENT</th><th>REGISTERED</th><th>CHECK-IN</th><th>ACTION</th></tr></thead><tbody id="attendeeRows"><tr><td colspan="7" class="empty">Loading registrations…</td></tr></tbody></table></div>
+      <p class="admin-msg" id="dashboardMessage"></p>
+    </section>
+  </main>
+  <script src="https://unpkg.com/html5-qrcode"></script><script type="module" src="admin.js"></script>
+</body>
+</html>
